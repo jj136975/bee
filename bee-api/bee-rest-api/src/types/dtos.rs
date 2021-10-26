@@ -35,8 +35,8 @@ use std::ops::Deref;
 use std::convert::{TryFrom, TryInto};
 
 /// The message object that nodes gossip around in the network.
-#[derive(Clone, Debug)]
 #[cfg_attr(feature = "serde1", derive(serde::Serialize, serde::Deserialize))]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct MessageDto {
     pub parents: Vec<ParentDto>,
     pub issuer_public_key: String,//[u8; MESSAGE_PUBLIC_KEY_LENGTH],
@@ -44,7 +44,6 @@ pub struct MessageDto {
     pub sequence_number: String,
     pub payload: Option<PayloadDto>,
     pub nonce: String,
-    #[cfg_attr(feature = "serde1", serde(with = "serde_big_array::BigArray"))]
     pub signature: String,//[u8; MESSAGE_SIGNATURE_LENGTH],
 }
 

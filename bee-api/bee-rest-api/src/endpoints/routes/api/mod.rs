@@ -1,7 +1,5 @@
 pub mod v1;
 
-use bee_storage_sled::storage::Storage;
-
 use axum::{
     handler::get,
     Router,
@@ -9,10 +7,10 @@ use axum::{
     routing::BoxRoute
 };
 
-pub fn api_routes(storage: &Storage) -> Router<BoxRoute> {
+pub fn api_routes() -> Router<BoxRoute> {
     Router::new()
         .route("/", get(handler))
-        .nest("/v1", v1::api_routes(storage))
+        .nest("/v1", v1::api_routes())
         .boxed()
 }
 

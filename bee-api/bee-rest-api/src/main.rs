@@ -6,8 +6,20 @@ use bee_storage_sled::{
     config::SledConfigBuilder,
 };
 
-use axum::{handler::get, response::Html, Router};
-use std::net::SocketAddr;
+use axum::{
+    AddExtensionLayer,
+    handler::get,
+    response::Html,
+    Router
+};
+use std::{
+    net::SocketAddr,
+    sync::{Arc, Mutex},
+};
+
+pub struct AppStorage {
+    storage: Mutex<Storage>,
+}
 
 #[tokio::main]
 async fn main() {
@@ -22,9 +34,11 @@ async fn main() {
         Ok(conf) => storage = conf,
     }
     // build our application with a route
+    let app_storage = Arc::new(AppStorage {storage: Mutex::new(storage)});
     let app = Router::new()
         .route("/", get(handler))
-        .nest("/api", endpoints::routes::api::api_routes(&storage));
+        .nest("/api", endpoints::routes::api::api_routes())
+        .layer(AddExtensionLayer::new(app_storage));
 
     // run it
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));

@@ -1,6 +1,6 @@
 use crate::types::{
     body::BodyInner,
-    dtos::{LedgerInclusionStateDto, MessageDto},
+    dtos::{MessageDto},
 };
 
 use serde::{Deserialize, Serialize};
@@ -44,20 +44,6 @@ pub struct MessageMetadataResponse {
     pub message_id: String,
     #[serde(rename = "parentMessageIds")]
     pub parent_message_ids: Vec<String>,
-    #[serde(rename = "isSolid")]
-    pub is_solid: bool,
-    #[serde(rename = "referencedByMilestoneIndex", skip_serializing_if = "Option::is_none")]
-    pub referenced_by_milestone_index: Option<u32>,
-    #[serde(rename = "milestoneIndex", skip_serializing_if = "Option::is_none")]
-    pub milestone_index: Option<u32>,
-    #[serde(rename = "ledgerInclusionState", skip_serializing_if = "Option::is_none")]
-    pub ledger_inclusion_state: Option<LedgerInclusionStateDto>,
-    #[serde(rename = "conflictReason", skip_serializing_if = "Option::is_none")]
-    pub conflict_reason: Option<u8>,
-    #[serde(rename = "shouldPromote", skip_serializing_if = "Option::is_none")]
-    pub should_promote: Option<bool>,
-    #[serde(rename = "shouldReattach", skip_serializing_if = "Option::is_none")]
-    pub should_reattach: Option<bool>,
 }
 
 impl BodyInner for MessageMetadataResponse {}
