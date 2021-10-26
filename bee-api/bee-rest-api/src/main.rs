@@ -7,6 +7,9 @@ use bee_storage_sled::{
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> done messages get route
 use axum::{
     AddExtensionLayer,
     handler::get,
@@ -21,10 +24,13 @@ use std::{
 pub struct AppStorage {
     storage: Mutex<Storage>,
 }
+<<<<<<< HEAD
 =======
 use axum::{handler::get, response::Html, Router};
 use std::net::SocketAddr;
 >>>>>>> Updated parents
+=======
+>>>>>>> done messages get route
 
 #[tokio::main]
 async fn main() {
@@ -40,6 +46,7 @@ async fn main() {
     }
     // build our application with a route
 <<<<<<< HEAD
+<<<<<<< HEAD
     let app_storage = Arc::new(AppStorage {storage: Mutex::new(storage)});
     let app = Router::new()
         .route("/", get(handler))
@@ -50,6 +57,13 @@ async fn main() {
         .route("/", get(handler))
         .nest("/api", endpoints::routes::api::api_routes(&storage));
 >>>>>>> Updated parents
+=======
+    let app_storage = Arc::new(AppStorage {storage: Mutex::new(storage)});
+    let app = Router::new()
+        .route("/", get(handler))
+        .nest("/api", endpoints::routes::api::api_routes())
+        .layer(AddExtensionLayer::new(app_storage));
+>>>>>>> done messages get route
 
     // run it
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));

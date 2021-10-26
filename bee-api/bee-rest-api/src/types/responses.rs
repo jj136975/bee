@@ -1,10 +1,14 @@
 use crate::types::{
     body::BodyInner,
 <<<<<<< HEAD
+<<<<<<< HEAD
     dtos::{MessageDto},
 =======
     dtos::{LedgerInclusionStateDto, MessageDto},
 >>>>>>> Updated parents
+=======
+    dtos::{MessageDto},
+>>>>>>> done messages get route
 };
 
 use serde::{Deserialize, Serialize};
@@ -49,6 +53,7 @@ pub struct MessageMetadataResponse {
     #[serde(rename = "parentMessageIds")]
     pub parent_message_ids: Vec<String>,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     #[serde(rename = "isSolid")]
     pub is_solid: bool,
@@ -65,6 +70,8 @@ pub struct MessageMetadataResponse {
     #[serde(rename = "shouldReattach", skip_serializing_if = "Option::is_none")]
     pub should_reattach: Option<bool>,
 >>>>>>> Updated parents
+=======
+>>>>>>> done messages get route
 }
 
 impl BodyInner for MessageMetadataResponse {}

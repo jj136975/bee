@@ -36,12 +36,17 @@ use std::convert::{TryFrom, TryInto};
 
 /// The message object that nodes gossip around in the network.
 <<<<<<< HEAD
+<<<<<<< HEAD
 #[cfg_attr(feature = "serde1", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Clone, Debug, Serialize, Deserialize)]
 =======
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "serde1", derive(serde::Serialize, serde::Deserialize))]
 >>>>>>> Updated parents
+=======
+#[cfg_attr(feature = "serde1", derive(serde::Serialize, serde::Deserialize))]
+#[derive(Clone, Debug, Serialize, Deserialize)]
+>>>>>>> done messages get route
 pub struct MessageDto {
     pub parents: Vec<ParentDto>,
     pub issuer_public_key: String,//[u8; MESSAGE_PUBLIC_KEY_LENGTH],
@@ -50,9 +55,12 @@ pub struct MessageDto {
     pub payload: Option<PayloadDto>,
     pub nonce: String,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     #[cfg_attr(feature = "serde1", serde(with = "serde_big_array::BigArray"))]
 >>>>>>> Updated parents
+=======
+>>>>>>> done messages get route
     pub signature: String,//[u8; MESSAGE_SIGNATURE_LENGTH],
 }
 
