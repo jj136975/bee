@@ -1,0 +1,8 @@
+[package]
+name = "crate-c"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+crate-a = { path = "../crate-a", default-features = false }
+crate-b = { path = "../crate-b", default-features = false }

@@ -1,0 +1,7 @@
+[package]
+name = "crate-b"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+crate-a = { path = "../crate-a", features = [ "feature-a" ], default-features = false }

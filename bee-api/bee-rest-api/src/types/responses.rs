@@ -88,3 +88,5 @@ pub struct MessageChildrenResponse {
     #[serde(rename = "childrenMessageIds")]
     pub children_message_ids: Vec<String>,
 }
+
+impl BodyInner for MessageChildrenResponse {}

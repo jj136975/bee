@@ -6,8 +6,12 @@ use crate::AppStorage;
 use crate::types::{
     dtos::MessageDto,
     body::SuccessBody,
+<<<<<<< HEAD
     responses::MessageResponse,
 <<<<<<< HEAD
+=======
+    responses::{MessageResponse, MessageMetadataResponse, MessageChildrenResponse},
+>>>>>>> add metadata rout
 };
 
 use bee_message::{Message, MessageId};
@@ -148,13 +152,56 @@ async fn get_id_handler(Path(messageId): Path<Uuid>, Extension(app_storage): Ext
 }
 
 pub async fn get_id_metadata_handler(Path(messageId): Path<Uuid>, Extension(app_storage): Extension<Arc<AppStorage>>) -> Json<Value> {
-    Json(json!({ "test": 11 }))
+    match Fetch::<MessageId, Message>::fetch(&*(
+        app_storage.storage.lock().unwrap()),
+            match &MessageId::from_str(&messageId.to_string()) {
+                Ok(message_id) => message_id,
+                Err(e) => return Json(json!({ "error": "could not parse message ID" })),
+            }
+        ) {
+            Ok(message) => match message {
+                Some(message) => Json(match serde_json::to_value(&SuccessBody::new( {
+                    let message_dto = MessageDto::from(&message);
+                    MessageMetadataResponse {
+                        message_id: message.id().to_string(),
+                        parent_message_ids: message_dto.parents.iter().map(|p| p.message_id.clone()).collect(),
+                    }
+                })) {
+                    Ok(data) => data,
+                    Err(e) => json!({ "error": "messagedto conversion failed" }),
+                }),
+                None => Json(json!({ "error": "could not find message" })),
+                }
+            Err(e) => Json(json!({ "error": "could not get message from storage" })),
+    }
 }
 
 pub async fn get_id_raw_handler(Path(messageId): Path<Uuid>, Extension(app_storage): Extension<Arc<AppStorage>>) -> Json<Value> {
-    Json(json!({ "test": 11 }))
+    match Fetch::<MessageId, Message>::fetch(&*(
+        app_storage.storage.lock().unwrap()),
+            match &MessageId::from_str(&messageId.to_string()) {
+                Ok(message_id) => message_id,
+                Err(e) => return Json(json!({ "error": "could not parse message ID" })),
+            }
+        ) {
+            Ok(message) => match message {
+                Some(message) => Json(match serde_json::to_value(&SuccessBody::new( {
+                    let message_dto = MessageDto::from(&message);
+                    MessageMetadataResponse { // TODO - change to Raw message
+                        message_id: message.id().to_string(),
+                        parent_message_ids: message_dto.parents.iter().map(|p| p.message_id.clone()).collect(),
+                    }
+                })) {
+                    Ok(data) => data,
+                    Err(e) => json!({ "error": "messagedto conversion failed" }),
+                }),
+                None => Json(json!({ "error": "could not find message" })),
+                }
+            Err(e) => Json(json!({ "error": "could not get message from storage" })),
+    }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 pub async fn get_id_children_handler(Path(messageId): Path<Uuid>) -> Html<&'static str> {
     Html("<h1>You are in /messages/{}/children</h1>")
@@ -163,4 +210,31 @@ pub async fn get_id_children_handler(Path(messageId): Path<Uuid>) -> Html<&'stat
 pub async fn get_id_children_handler(Path(messageId): Path<Uuid>) -> Json<Value> {
     Json(json!({ "test": 11 }))
 >>>>>>> done messages get route
+=======
+pub async fn get_id_children_handler(Path(messageId): Path<Uuid>, Extension(app_storage): Extension<Arc<AppStorage>>) -> Json<Value> {
+    match Fetch::<MessageId, Message>::fetch(&*(
+        app_storage.storage.lock().unwrap()),
+            match &MessageId::from_str(&messageId.to_string()) {
+                Ok(message_id) => message_id,
+                Err(e) => return Json(json!({ "error": "could not parse message ID" })),
+            }
+        ) {
+            Ok(message) => match message {
+                Some(message) => Json(match serde_json::to_value(&SuccessBody::new( {
+                    let message_dto = MessageDto::from(&message);
+                    MessageChildrenResponse {
+                        message_id: message.id().to_string(),
+                        max_results: 0, // TODO
+                        count: 0, // TODO
+                        children_message_ids: vec!(), // TODO
+                    }
+                })) {
+                    Ok(data) => data,
+                    Err(e) => json!({ "error": "messagedto conversion failed" }),
+                }),
+                None => Json(json!({ "error": "could not find message" })),
+                }
+            Err(e) => Json(json!({ "error": "could not get message from storage" })),
+    }
+>>>>>>> add metadata rout
 }
