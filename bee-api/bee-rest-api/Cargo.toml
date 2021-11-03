@@ -1,4 +1,4 @@
-  
+
 [package]
 name = "bee-rest-api"
 version = "0.1.0"
@@ -11,15 +11,7 @@ bee-packable = { path = "../../bee-common/bee-packable" }
 bee-storage-sled = { path = "../../bee-storage/bee-storage-sled" }
 bee-storage = { path = "../../bee-storage/bee-storage" }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 axum = { version = "0.2.8" }
-=======
-axum = { version = "0.2.3" }
->>>>>>> Updated parents
-=======
-axum = { version = "0.2.8" }
->>>>>>> done messages get route
 hex = { version = "0.4" }
 http = { version = "0.2.4" }
 serde =  { version = " 1.0.117" }
